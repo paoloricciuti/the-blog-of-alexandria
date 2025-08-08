@@ -1,0 +1,1 @@
+ALTER TABLE `blog` ADD `title` text DEFAULT 'Untitled' NOT NULL;

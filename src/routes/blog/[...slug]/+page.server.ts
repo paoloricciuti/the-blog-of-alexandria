@@ -22,6 +22,8 @@ const openai = new OpenAI({
 	apiKey: OPENROUTER_API_KEY
 });
 
+const promises = new Map<string, { content: Promise<string>; title: Promise<string> }>();
+
 export async function load({ params: { slug } }) {
 	const existsting = await db.select().from(blog).where(eq(blog.slug, slug)).get();
 	if (existsting) {
@@ -30,8 +32,11 @@ export async function load({ params: { slug } }) {
 			title: existsting.title
 		};
 	}
-	const { promise: content, resolve } = Promise.withResolvers();
-	const { promise: title, resolve: resolve_title } = Promise.withResolvers();
+	if (promises.has(slug)) {
+		return promises.get(slug);
+	}
+	const { promise: content, resolve } = Promise.withResolvers<string>();
+	const { promise: title, resolve: resolve_title } = Promise.withResolvers<string>();
 	openai.chat.completions
 		.create({
 			model: 'openai/gpt-oss-20b:free',
@@ -88,6 +93,10 @@ OUTPUT: Return only the blog post content in markdown format. No meta-commentary
 
 				resolve(rendered);
 			}
+		})
+		.finally(() => {
+			promises.delete(slug);
 		});
+	promises.set(slug, { content, title });
 	return { content, title };
 }

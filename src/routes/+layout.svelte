@@ -21,6 +21,6 @@
 	</nav>
 </header>
 
-<main class="m-auto prose font-serif">
+<main class="m-auto prose font-serif p-4">
 	{@render children?.()}
 </main>

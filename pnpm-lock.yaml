@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/crimson-text':
+        specifier: ^5.2.6
+        version: 5.2.6
+      '@fontsource/eb-garamond':
+        specifier: ^5.2.6
+        version: 5.2.6
       '@libsql/client':
         specifier: ^0.14.0
         version: 0.14.0
@@ -590,6 +596,12 @@ packages:
   '@eslint/plugin-kit@0.3.5':
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fontsource/crimson-text@5.2.6':
+    resolution: {integrity: sha512-qy2ZgWzwMYapa5yBnc1XO5XQM1txC1x7uQSag6a9y2yVFSilBmeH70tzY8zSfozi+vC+5udoUzk+gsrecxAnPA==}
+
+  '@fontsource/eb-garamond@5.2.6':
+    resolution: {integrity: sha512-tyfij001YUzGAdIVxWSmID5zlR6PUzMUDm4GjwDlfBEtlS+slyypAmtkM7x4oG1mS0n9pqFbQW+WlmNm1UVJQA==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -2570,6 +2582,10 @@ snapshots:
     dependencies:
       '@eslint/core': 0.15.2
       levn: 0.4.1
+
+  '@fontsource/crimson-text@5.2.6': {}
+
+  '@fontsource/eb-garamond@5.2.6': {}
 
   '@humanfs/core@0.19.1': {}
 

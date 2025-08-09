@@ -31,14 +31,13 @@ export async function load({ params: { slug } }) {
 		};
 	}
 	
-	// Save empty record immediately to prevent race conditions
-	const placeholderTitle = 'Generating...';
-	const placeholderContent = '<p>Content is being generated, please wait...</p>';
-	
+	// Save empty record immediately to prevent race conditions from multiple users
+	// accessing the same slug simultaneously. Empty strings allow frontend to detect
+	// loading state and show proper loading UI.
 	await db.insert(blog).values({ 
 		slug, 
-		title: placeholderTitle, 
-		content: placeholderContent 
+		title: '', 
+		content: '' 
 	}).execute();
 	
 	const { promise: content, resolve } = Promise.withResolvers();

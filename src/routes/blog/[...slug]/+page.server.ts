@@ -22,6 +22,9 @@ const openai = new OpenAI({
 	apiKey: OPENROUTER_API_KEY
 });
 
+// Map to store ongoing generation promises for each slug to prevent race conditions
+const generationPromises = new Map();
+
 export async function load({ params: { slug } }) {
 	const existsting = await db.select().from(blog).where(eq(blog.slug, slug)).get();
 	if (existsting) {
@@ -31,24 +34,24 @@ export async function load({ params: { slug } }) {
 		};
 	}
 	
-	// Save empty record immediately to prevent race conditions from multiple users
-	// accessing the same slug simultaneously. Empty strings allow frontend to detect
-	// loading state and show proper loading UI.
-	await db.insert(blog).values({ 
-		slug, 
-		title: '', 
-		content: '' 
-	}).execute();
+	// Check if generation is already in progress for this slug
+	if (generationPromises.has(slug)) {
+		return generationPromises.get(slug);
+	}
 	
-	const { promise: content, resolve } = Promise.withResolvers();
-	const { promise: title, resolve: resolve_title } = Promise.withResolvers();
-	openai.chat.completions
-		.create({
-			model: 'openai/gpt-oss-20b:free',
-			messages: [
-				{
-					role: 'user',
-					content: `Write a comprehensive, engaging blog post for the slug "${slug}". 
+	// Create a promise for this generation and store it in the map
+	const generationPromise = (async () => {
+		try {
+			const { promise: content, resolve } = Promise.withResolvers();
+			const { promise: title, resolve: resolve_title } = Promise.withResolvers();
+			
+			openai.chat.completions
+				.create({
+					model: 'openai/gpt-oss-20b:free',
+					messages: [
+						{
+							role: 'user',
+							content: `Write a comprehensive, engaging blog post for the slug "${slug}". 
 
 REQUIREMENTS:
 - Start with a compelling title using # markdown heading (first line only)
@@ -78,30 +81,53 @@ INTERNAL LINKING:
 - Only suggest realistic links that would make sense for a blog covering similar topics
 
 OUTPUT: Return only the blog post content in markdown format. No meta-commentary or explanations - just the article that will be directly rendered on the page.`
-				}
-			]
-		})
-		.then((completion) => {
-			if (completion.choices[0].message.content) {
-				const content = completion.choices[0].message.content;
+						}
+					]
+				})
+				.then(async (completion) => {
+					if (completion.choices[0].message.content) {
+						const content = completion.choices[0].message.content;
 
-				const [, title] = content
-					.split('\n')[0]
-					.trim()
-					.match(/# (.+)/) ?? ['', 'Untitled'];
+						const [, title] = content
+							.split('\n')[0]
+							.trim()
+							.match(/# (.+)/) ?? ['', 'Untitled'];
 
-				resolve_title(title);
+						resolve_title(title);
 
-				const rendered = md.render(content);
+						const rendered = md.render(content);
 
-				// Update the existing record instead of inserting a new one
-				db.update(blog)
-					.set({ title, content: rendered })
-					.where(eq(blog.slug, slug))
-					.execute();
+						// Save the generated content to the database
+						await db.insert(blog).values({
+							slug,
+							title,
+							content: rendered
+						}).execute();
 
-				resolve(rendered);
-			}
-		});
-	return { content, title };
+						resolve(rendered);
+					}
+				})
+				.catch((error) => {
+					// Clean up the promise from the map on error
+					generationPromises.delete(slug);
+					throw error;
+				});
+			
+			const result = { content: await content, title: await title };
+			
+			// Clean up the promise from the map after successful completion
+			generationPromises.delete(slug);
+			
+			return result;
+		} catch (error) {
+			// Ensure cleanup happens even if outer try block fails
+			generationPromises.delete(slug);
+			throw error;
+		}
+	})();
+	
+	// Store the promise in the map
+	generationPromises.set(slug, generationPromise);
+	
+	return generationPromise;
 }

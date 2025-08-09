@@ -14,7 +14,7 @@
 	{:else}
 		{#each data.posts as post}
 			<article class="not-prose mb-8 border-b pb-6 last:border-b-0">
-				<h2>
+				<h2 class="text-3xl font-bold mb-3">
 					<a href="/blog/{post.slug}" class="text-decoration-none">
 						{post.title}
 					</a>

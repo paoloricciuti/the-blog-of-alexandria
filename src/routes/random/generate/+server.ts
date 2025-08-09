@@ -1,6 +1,9 @@
 import { openai } from '$lib/server/openai';
 import { redirect } from '@sveltejs/kit';
 import { toJsonSchema } from '@valibot/to-json-schema';
+import { db } from '$lib/server/db/index.js';
+import { blog } from '$lib/server/db/schema.js';
+import { sql } from 'drizzle-orm';
 
 import * as v from 'valibot';
 
@@ -39,7 +42,24 @@ export async function GET() {
 		url = v.parse(SlugSchemaStrict, JSON.parse(generated.choices[0].message.content ?? '')).slug;
 	} catch (e) {
 		console.log(e);
-		url = '/some-random-article';
+		// Select a random article from the database
+		try {
+			const random_article = await db
+				.select({ slug: blog.slug })
+				.from(blog)
+				.orderBy(sql`RANDOM()`)
+				.limit(1)
+				.get();
+
+			if (random_article) {
+				url = `/${random_article.slug}`;
+			} else {
+				url = '/some-random-article';
+			}
+		} catch (dbError) {
+			console.log('Database error:', dbError);
+			url = '/some-random-article';
+		}
 	}
 	redirect(302, `/blog${url}`);
 }

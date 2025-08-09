@@ -1,0 +1,45 @@
+import { openai } from '$lib/server/openai';
+import { redirect } from '@sveltejs/kit';
+import { toJsonSchema } from '@valibot/to-json-schema';
+
+import * as v from 'valibot';
+
+const SlugSchema = v.object({
+	slug: v.string()
+});
+
+const SlugSchemaStrict = v.pipe(
+	SlugSchema,
+	v.check((data) => /^\/[\w-]+/.test(data.slug))
+);
+
+export async function GET() {
+	let url: string;
+	try {
+		const generated = await openai.chat.completions.create({
+			model: 'openai/gpt-oss-20b:free',
+			messages: [
+				{
+					role: 'user',
+					content: `generates possible funny blog post slogs like \`/the-best-javascript-framework\` or \`/what-i-learned-by-navigating-the-sevens-seas\` that follows this regex /^\\/[\\w-]+/.`
+				}
+			],
+			response_format: {
+				type: 'json_schema',
+				json_schema: {
+					name: 'slug',
+					description: 'a slug that conform to the schema that follows this regex /^\\/[\\w-]+/.',
+					schema: toJsonSchema(SlugSchema) as Record<string, unknown>,
+					strict: true
+				}
+			}
+		});
+
+		console.log(generated);
+		url = v.parse(SlugSchemaStrict, JSON.parse(generated.choices[0].message.content ?? '')).slug;
+	} catch (e) {
+		console.log(e);
+		url = '/some-random-article';
+	}
+	redirect(302, `/blog${url}`);
+}

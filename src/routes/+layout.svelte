@@ -17,15 +17,13 @@
 
 	<header class="paper-texture mx-auto max-w-6xl px-6 py-8 shadow-sm">
 		<div class="text-center">
-			<h1 class="title-display mb-2">
-				The Blog of Alexandria
-			</h1>
+			<h1 class="title-display mb-2">The Blog of Alexandria</h1>
 			<div class="chapter-divider">
 				<span class="ornament">❦</span>
 			</div>
 
 			<nav class="mt-6">
-				<ul class="flex list-none justify-center space-x-8">
+				<ul class="flex list-none flex-wrap justify-center space-x-8">
 					<li>
 						<a href="/" class="elegant-link text-lg font-medium transition-all hover:scale-105">
 							Home
@@ -50,6 +48,14 @@
 							class="elegant-link text-lg font-medium transition-all hover:scale-105"
 						>
 							Contacts
+						</a>
+					</li>
+					<li>
+						<a
+							href="/random"
+							class="elegant-link text-lg font-medium transition-all hover:scale-105"
+						>
+							Random article
 						</a>
 					</li>
 				</ul>

@@ -20,6 +20,9 @@ importers:
       '@shikijs/markdown-it':
         specifier: ^3.9.2
         version: 3.9.2
+      '@valibot/to-json-schema':
+        specifier: ^1.3.0
+        version: 1.3.0(valibot@1.1.0(typescript@5.9.2))
       drizzle-orm:
         specifier: ^0.40.0
         version: 0.40.1(@libsql/client@0.14.0)(gel@2.1.1)
@@ -29,6 +32,9 @@ importers:
       openai:
         specifier: ^5.12.2
         version: 5.12.2(ws@8.18.3)
+      valibot:
+        specifier: ^1.1.0
+        version: 1.1.0(typescript@5.9.2)
     devDependencies:
       '@eslint/compat':
         specifier: ^1.2.5
@@ -1106,6 +1112,11 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+
+  '@valibot/to-json-schema@1.3.0':
+    resolution: {integrity: sha512-82Vv6x7sOYhv5YmTRgSppSqj1nn2pMCk5BqCMGWYp0V/fq+qirrbGncqZAtZ09/lrO40ne/7z8ejwE728aVreg==}
+    peerDependencies:
+      valibot: ^1.1.0
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2189,6 +2200,14 @@ packages:
     resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
     hasBin: true
 
+  valibot@1.1.0:
+    resolution: {integrity: sha512-Nk8lX30Qhu+9txPYTwM0cFlWLdPFsFr6LblzqIySfbZph9+BFsAHsNvHOymEviUepeIW6KFHzpX8TKhbptBXXw==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   vfile-message@4.0.3:
     resolution: {integrity: sha512-QTHzsGd1EhbZs4AsQ20JX1rC3cOlt/IWJruk893DfLRr57lcnOeMaWG4K0JrRta4mIJZKth2Au3mM3u03/JWKw==}
 
@@ -3089,6 +3108,10 @@ snapshots:
       eslint-visitor-keys: 4.2.1
 
   '@ungap/structured-clone@1.3.0': {}
+
+  '@valibot/to-json-schema@1.3.0(valibot@1.1.0(typescript@5.9.2))':
+    dependencies:
+      valibot: 1.1.0(typescript@5.9.2)
 
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:
@@ -4078,6 +4101,10 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   uuid@11.1.0: {}
+
+  valibot@1.1.0(typescript@5.9.2):
+    optionalDependencies:
+      typescript: 5.9.2
 
   vfile-message@4.0.3:
     dependencies:

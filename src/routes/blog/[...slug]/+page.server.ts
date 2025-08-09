@@ -1,10 +1,9 @@
-import { OPENROUTER_API_KEY } from '$env/static/private';
 import { db } from '$lib/server/db/index.js';
 import { blog } from '$lib/server/db/schema.js';
+import { openai } from '$lib/server/openai';
 import Shiki from '@shikijs/markdown-it';
 import { eq } from 'drizzle-orm';
 import MarkdownIt from 'markdown-it';
-import OpenAI from 'openai';
 
 const md = MarkdownIt();
 
@@ -16,11 +15,6 @@ md.use(
 		}
 	})
 );
-
-const openai = new OpenAI({
-	baseURL: 'https://openrouter.ai/api/v1',
-	apiKey: OPENROUTER_API_KEY
-});
 
 const promises = new Map<string, { content: Promise<string>; title: Promise<string> }>();
 
@@ -56,7 +50,7 @@ REQUIREMENTS:
 
 FORMATTING:
 - Use markdown formatting throughout
-- Include code blocks with proper syntax highlighting when applicable
+- If the article is about coding include code blocks with proper syntax highlighting when applicable
 - Use bullet points and numbered lists for clarity
 - Bold important concepts and italicize emphasis
 

@@ -1,17 +1,23 @@
 import { db } from '$lib/server/db/index.js';
 import { blog } from '$lib/server/db/schema.js';
-import { desc } from 'drizzle-orm';
+import { desc, count } from 'drizzle-orm';
 
-const POSTS_PER_PAGE = 10;
+const posts_per_page = 10;
 
 export async function load({ url }) {
-	const page = parseInt(url.searchParams.get('page') || '1', 10);
-	const offset = (page - 1) * POSTS_PER_PAGE;
+	const page_param = url.searchParams.get('page') || '1';
+	const page = parseInt(page_param, 10);
+	
+	// Validate page number
+	if (isNaN(page) || page < 1) {
+		throw new Error('Invalid page number');
+	}
+	
+	const offset = (page - 1) * posts_per_page;
 
 	// Get total count for pagination
-	const totalPosts = await db.select().from(blog).all();
-	const totalCount = totalPosts.length;
-	const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
+	const [{ total_count }] = await db.select({ total_count: count() }).from(blog);
+	const total_pages = Math.ceil(total_count / posts_per_page);
 
 	// Get paginated posts (ordered by slug for consistent ordering)
 	const posts = await db
@@ -22,15 +28,15 @@ export async function load({ url }) {
 		})
 		.from(blog)
 		.orderBy(desc(blog.slug))
-		.limit(POSTS_PER_PAGE)
+		.limit(posts_per_page)
 		.offset(offset)
 		.all();
 
 	// Create excerpts from content (strip HTML and truncate)
-	const postsWithExcerpts = posts.map((post) => {
+	const posts_with_excerpts = posts.map((post) => {
 		// Strip HTML tags and get first ~200 characters
-		const plainText = post.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-		const excerpt = plainText.length > 200 ? plainText.substring(0, 200) + '...' : plainText;
+		const plain_text = post.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+		const excerpt = plain_text.length > 200 ? plain_text.substring(0, 200) + '...' : plain_text;
 		
 		return {
 			slug: post.slug,
@@ -40,13 +46,13 @@ export async function load({ url }) {
 	});
 
 	return {
-		posts: postsWithExcerpts,
+		posts: posts_with_excerpts,
 		pagination: {
-			currentPage: page,
-			totalPages,
-			totalCount,
-			hasNextPage: page < totalPages,
-			hasPrevPage: page > 1
+			current_page: page,
+			total_pages,
+			total_count,
+			has_next_page: page < total_pages,
+			has_prev_page: page > 1
 		}
 	};
 }

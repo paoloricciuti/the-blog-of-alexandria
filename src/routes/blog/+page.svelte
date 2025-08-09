@@ -29,11 +29,11 @@
 		{/each}
 
 		<!-- Pagination -->
-		{#if data.pagination.totalPages > 1}
+		{#if data.pagination.total_pages > 1}
 			<div class="not-prose text-center mt-8">
-				{#if data.pagination.hasPrevPage}
+				{#if data.pagination.has_prev_page}
 					<a
-						href="/blog?page={data.pagination.currentPage - 1}"
+						href="/blog?page={data.pagination.current_page - 1}"
 						class="text-decoration-none mr-4"
 					>
 						← Previous
@@ -41,12 +41,12 @@
 				{/if}
 
 				<span class="mx-4">
-					Page {data.pagination.currentPage} of {data.pagination.totalPages}
+					Page {data.pagination.current_page} of {data.pagination.total_pages}
 				</span>
 
-				{#if data.pagination.hasNextPage}
+				{#if data.pagination.has_next_page}
 					<a
-						href="/blog?page={data.pagination.currentPage + 1}"
+						href="/blog?page={data.pagination.current_page + 1}"
 						class="text-decoration-none ml-4"
 					>
 						Next →
@@ -54,7 +54,7 @@
 				{/if}
 
 				<p class="text-sm text-gray-500 mt-2">
-					Showing {data.posts.length} of {data.pagination.totalCount} posts
+					Showing {data.posts.length} of {data.pagination.total_count} posts
 				</p>
 			</div>
 		{/if}

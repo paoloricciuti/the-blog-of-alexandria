@@ -30,6 +30,17 @@ export async function load({ params: { slug } }) {
 			title: existsting.title
 		};
 	}
+	
+	// Save empty record immediately to prevent race conditions
+	const placeholderTitle = 'Generating...';
+	const placeholderContent = '<p>Content is being generated, please wait...</p>';
+	
+	await db.insert(blog).values({ 
+		slug, 
+		title: placeholderTitle, 
+		content: placeholderContent 
+	}).execute();
+	
 	const { promise: content, resolve } = Promise.withResolvers();
 	const { promise: title, resolve: resolve_title } = Promise.withResolvers();
 	openai.chat.completions
@@ -84,7 +95,11 @@ OUTPUT: Return only the blog post content in markdown format. No meta-commentary
 
 				const rendered = md.render(content);
 
-				db.insert(blog).values({ slug, title, content: rendered }).execute();
+				// Update the existing record instead of inserting a new one
+				db.update(blog)
+					.set({ title, content: rendered })
+					.where(eq(blog.slug, slug))
+					.execute();
 
 				resolve(rendered);
 			}

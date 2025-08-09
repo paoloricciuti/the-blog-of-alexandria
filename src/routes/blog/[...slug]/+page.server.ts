@@ -38,7 +38,36 @@ export async function load({ params: { slug } }) {
 			messages: [
 				{
 					role: 'user',
-					content: `Please write a blog post that would fit the slug "${slug}". The post should be engaging, informative, and suitable for a general audience. It should cover the topic in depth and include relevant examples or anecdotes. Use markdown as output and only answer with the content of the blog post, no extra ceremonies. The content will be directly embedded into a page so it shouldn't look like a chat completion. The first line of the post should always be the title of the blog post and only that.`
+					content: `Write a comprehensive, engaging blog post for the slug "${slug}". 
+
+REQUIREMENTS:
+- Start with a compelling title using # markdown heading (first line only)
+- Write 800-1200 words of high-quality, informative content
+- Use clear, conversational tone suitable for a general audience
+- Structure with proper headings (##, ###) and logical flow
+- Include practical examples, code snippets, or real-world applications where relevant
+- Add engaging introduction that hooks the reader
+- Conclude with actionable takeaways or thought-provoking questions
+
+FORMATTING:
+- Use markdown formatting throughout
+- Include code blocks with proper syntax highlighting when applicable
+- Use bullet points and numbered lists for clarity
+- Bold important concepts and italicize emphasis
+
+SEO & ENGAGEMENT:
+- Write compelling subheadings that break up content
+- Include relevant keywords naturally throughout
+- Make content scannable with good structure
+- Add value that readers can't find elsewhere
+
+INTERNAL LINKING:
+- When relevant to the topic, naturally reference and link to other articles that might exist on this blog
+- Use descriptive anchor text for links
+- Format internal links as relative paths like [link text](/blog/other-article-slug)
+- Only suggest realistic links that would make sense for a blog covering similar topics
+
+OUTPUT: Return only the blog post content in markdown format. No meta-commentary or explanations - just the article that will be directly rendered on the page.`
 				}
 			]
 		})

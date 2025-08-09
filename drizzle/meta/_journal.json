@@ -15,6 +15,13 @@
       "when": 1754686762260,
       "tag": "0001_glamorous_mandroid",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1754733582429,
+      "tag": "0002_green_sphinx",
+      "breakpoints": true
     }
   ]
 }

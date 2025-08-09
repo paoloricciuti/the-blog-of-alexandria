@@ -19,7 +19,7 @@ export async function load({ url }) {
 	const [{ total_count }] = await db.select({ total_count: count() }).from(blog);
 	const total_pages = Math.ceil(total_count / posts_per_page);
 
-	// Get paginated posts (ordered by slug for consistent ordering)
+	// Get paginated posts (ordered by created_at descending - newest first)
 	const posts = await db
 		.select({
 			slug: blog.slug,
@@ -27,7 +27,7 @@ export async function load({ url }) {
 			content: blog.content
 		})
 		.from(blog)
-		.orderBy(desc(blog.slug))
+		.orderBy(desc(blog.created_at))
 		.limit(posts_per_page)
 		.offset(offset)
 		.all();

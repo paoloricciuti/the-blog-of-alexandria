@@ -1,18 +1,31 @@
 import { db } from '$lib/server/db/index.js';
 import { blog } from '$lib/server/db/schema.js';
 import { openai } from '$lib/server/openai';
-import Shiki from '@shikijs/markdown-it';
+import { fromHighlighter } from '@shikijs/markdown-it';
+import { bundledLanguages, createHighlighter } from 'shiki';
 import { eq } from 'drizzle-orm';
 import MarkdownIt from 'markdown-it';
 
 const md = MarkdownIt();
 
+const highlighter = await createHighlighter({
+	themes: ['github-light', 'github-dark'],
+	langs: Object.keys(bundledLanguages)
+});
+
 md.use(
-	await Shiki({
-		themes: {
-			light: 'vitesse-light',
-			dark: 'vitesse-dark'
-		}
+	fromHighlighter(highlighter, {
+		theme: 'github-light',
+		transformers: [
+			{
+				name: 'unknown-laguage-skip',
+				preprocess(code, options) {
+					if (!highlighter.getLoadedLanguages().includes(options.lang)) {
+						options.lang = 'plaintext';
+					}
+				}
+			}
+		]
 	})
 );
 

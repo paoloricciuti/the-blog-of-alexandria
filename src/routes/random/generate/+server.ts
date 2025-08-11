@@ -38,7 +38,6 @@ export async function GET() {
 			}
 		});
 
-		console.log(generated);
 		url = v.parse(SlugSchemaStrict, JSON.parse(generated.choices[0].message.content ?? '')).slug;
 	} catch (e) {
 		console.log(e);

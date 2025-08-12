@@ -31,7 +31,17 @@ md.use(
 
 const promises = new Map<string, { content: Promise<string>; title: Promise<string> }>();
 
+export const prerender = 'auto';
+
+export async function entries() {
+	const entries = await db.select().from(blog).all();
+	return entries.map((entry) => ({
+		slug: entry.slug
+	}));
+}
+
 export async function load({ params: { slug } }) {
+	console.log('Loading blog post for slug:', slug);
 	const existsting = await db.select().from(blog).where(eq(blog.slug, slug)).get();
 	if (existsting) {
 		return {

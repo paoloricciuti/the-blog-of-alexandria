@@ -41,11 +41,13 @@ const promises = new Map<string, { content: Promise<string>; title: Promise<stri
 // }
 
 export async function load({ params: { slug } }) {
-	const existsting = await db.select().from(blog).where(eq(blog.slug, slug)).get();
-	if (existsting) {
+	console.time('load blog post');
+	const existing = await db.select().from(blog).where(eq(blog.slug, slug)).get();
+	console.timeEnd('load blog post');
+	if (existing) {
 		return {
-			content: existsting.content,
-			title: existsting.title
+			content: existing.content,
+			title: existing.title
 		};
 	}
 	if (promises.has(slug)) {

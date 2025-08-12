@@ -5,6 +5,7 @@ import { fromHighlighter } from '@shikijs/markdown-it';
 import { bundledLanguages, createHighlighter } from 'shiki';
 import { eq } from 'drizzle-orm';
 import MarkdownIt from 'markdown-it';
+import { building } from '$app/environment';
 
 const md = MarkdownIt();
 
@@ -31,8 +32,12 @@ md.use(
 
 const promises = new Map<string, { content: Promise<string>; title: Promise<string> }>();
 
-export async function load({ params: { slug } }) {
-	console.time('load blog post');
+export async function load({ params: { slug }, setHeaders }) {
+	if (!building) {
+		setHeaders({
+			'Cache-Control': 'no-cache, no-transform'
+		});
+	}
 	const existing = await db.select().from(blog).where(eq(blog.slug, slug)).get();
 	if (existing) {
 		return {

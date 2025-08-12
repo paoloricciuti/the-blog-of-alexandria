@@ -41,7 +41,6 @@ export async function entries() {
 }
 
 export async function load({ params: { slug } }) {
-	console.log('Loading blog post for slug:', slug);
 	const existsting = await db.select().from(blog).where(eq(blog.slug, slug)).get();
 	if (existsting) {
 		return {

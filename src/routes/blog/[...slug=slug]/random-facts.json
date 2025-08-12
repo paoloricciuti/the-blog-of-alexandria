@@ -1,0 +1,62 @@
+[
+	{
+		"id": 1,
+		"fact": "The Library was founded around 295 BCE during the reign of Ptolemy I Soter, one of Alexander the Great's generals who ruled Egypt after Alexander's death. It was part of the larger Mouseion (shrine of the Muses), essentially making it the world's first major research institution and university."
+	},
+	{
+		"id": 2,
+		"fact": "The Ptolemies used remarkably aggressive tactics to build their collection. They would confiscate scrolls from ships entering Alexandria's harbor, make copies, and return the copies while keeping the originals. They even borrowed precious manuscripts from Athens under the pretense of copying them, then kept the originals and sent back the copies along with the deposit money."
+	},
+	{
+		"id": 3,
+		"fact": "At its peak, the Library likely contained between 400,000 to 700,000 scrolls, though some ancient sources claim numbers as high as one million. This represented virtually all of recorded human knowledge at the time."
+	},
+	{
+		"id": 4,
+		"fact": "The Ptolemies aimed to collect every book ever written in every language and subject. They had works translated into Greek from Egyptian, Hebrew, Persian, Indian, and other languages, making Alexandria a center of translation and cross-cultural scholarship."
+	},
+	{
+		"id": 5,
+		"fact": "The Library attracted brilliant minds including Euclid (who developed geometric principles still taught today), Eratosthenes (who calculated Earth's circumference with remarkable accuracy), Archimedes (the mathematician and inventor), and Aristarchus (who proposed that Earth orbited the Sun, centuries before Copernicus)."
+	},
+	{
+		"id": 6,
+		"fact": "Beyond scrolls, the Library housed maps, astronomical instruments, medical tools, and specimens for scientific study. It functioned as a comprehensive research center with laboratories and observatories."
+	},
+	{
+		"id": 7,
+		"fact": "When the main Library became overcrowded, a smaller 'daughter library' was established in the Serapeum temple, which may have held around 42,800 scrolls and continued operating long after the main Library's decline."
+	},
+	{
+		"id": 8,
+		"fact": "Contrary to popular belief, the Library wasn't destroyed in a single catastrophic event. Its decline occurred over centuries due to reduced funding, political instability, the rise of Christianity, budget cuts, and gradual neglect rather than one dramatic fire or invasion."
+	},
+	{
+		"id": 9,
+		"fact": "Julius Caesar did accidentally cause a fire in 48 BCE during his Alexandrian War, but this likely only destroyed scrolls in the harbor warehouses, not the main Library itself, though it did represent a significant loss of texts."
+	},
+	{
+		"id": 10,
+		"fact": "As Christianity became dominant, many pagan texts were seen as heretical. The murder of the philosopher Hypatia in 415 CE by a Christian mob symbolized the end of Alexandria's role as a center of pagan learning."
+	},
+	{
+		"id": 11,
+		"fact": "Scholars at the Library lived a remarkably privileged life - they received free food, lodging, and exemption from taxes, allowing them to focus entirely on research and teaching. This was essentially the world's first 'think tank' with full financial support."
+	},
+	{
+		"id": 12,
+		"fact": "According to tradition, the Library was where seventy Jewish scholars translated the Hebrew Bible into Greek, creating the Septuagint, one of the most important ancient translations of biblical texts."
+	},
+	{
+		"id": 13,
+		"fact": "The Library pioneered systematic manuscript copying and developed early cataloging systems. Scholars like Callimachus created the 'Pinakes,' essentially the world's first library catalog, organizing works by subject and author."
+	},
+	{
+		"id": 14,
+		"fact": "The Library's medical school made groundbreaking discoveries, including detailed studies of human anatomy through dissection (which was forbidden elsewhere) and early surgical techniques that wouldn't be rediscovered in Europe for over a thousand years."
+	},
+	{
+		"id": 15,
+		"fact": "The Library's model influenced Islamic libraries during the Golden Age of Islam, medieval European monasteries, and ultimately modern universities. Its ideal of collecting and preserving all human knowledge continues to inspire institutions like the Internet Archive and modern digital libraries today."
+	}
+]

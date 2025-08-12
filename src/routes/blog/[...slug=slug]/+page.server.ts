@@ -43,7 +43,6 @@ const promises = new Map<string, { content: Promise<string>; title: Promise<stri
 export async function load({ params: { slug } }) {
 	console.time('load blog post');
 	const existing = await db.select().from(blog).where(eq(blog.slug, slug)).get();
-	console.timeEnd('load blog post');
 	if (existing) {
 		return {
 			content: existing.content,
@@ -116,5 +115,9 @@ OUTPUT: Return only the blog post content in markdown format. No meta-commentary
 			promises.delete(slug);
 		});
 	promises.set(slug, { content, title });
-	return { content, title };
+	try {
+		return { content, title };
+	} finally {
+		console.timeEnd('load blog post');
+	}
 }

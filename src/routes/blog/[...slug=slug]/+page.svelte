@@ -34,6 +34,15 @@
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html content}
 	</div>
+	
+	<div class="ai-disclaimer">
+		<div class="chapter-divider">
+			<span class="ornament">❦</span>
+		</div>
+		<p class="text-sm text-muted text-center italic">
+			<em>This manuscript emerges from the intersection of human inquiry and artificial contemplation</em>
+		</p>
+	</div>
 {:catch error}
 	<p>Error loading blog post: {error.message}</p>
 {/await}
@@ -83,5 +92,15 @@
 		100% {
 			opacity: 0;
 		}
+	}
+	
+	.ai-disclaimer {
+		margin-top: 3rem;
+		opacity: 0.7;
+		transition: opacity 0.3s ease;
+	}
+	
+	.ai-disclaimer:hover {
+		opacity: 1;
 	}
 </style>

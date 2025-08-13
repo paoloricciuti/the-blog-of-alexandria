@@ -37,7 +37,6 @@
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
-		"svelte-component-to-image": "^2.0.4",
 		"tailwindcss": "^4.0.0",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.20.0",
@@ -55,6 +54,7 @@
 		"markdown-it-anchor": "^9.2.0",
 		"openai": "^5.12.2",
 		"shiki": "^3.9.2",
+		"svelte-component-to-image": "^2.0.4",
 		"valibot": "^1.1.0"
 	},
 	"engines": {

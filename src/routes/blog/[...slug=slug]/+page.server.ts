@@ -5,6 +5,7 @@ import { fromHighlighter } from '@shikijs/markdown-it';
 import { bundledLanguages, createHighlighter } from 'shiki';
 import { eq } from 'drizzle-orm';
 import MarkdownIt from 'markdown-it';
+import anchor from 'markdown-it-anchor';
 import { building } from '$app/environment';
 
 const md = MarkdownIt();
@@ -12,6 +13,14 @@ const md = MarkdownIt();
 const highlighter = await createHighlighter({
 	themes: ['github-light', 'github-dark'],
 	langs: Object.keys(bundledLanguages)
+});
+
+md.use(anchor, {
+	permalink: true,
+	permalinkBefore: true,
+	permalinkSymbol: '#',
+	permalinkClass: 'anchor',
+	level: [2, 3, 4, 5, 6]
 });
 
 md.use(

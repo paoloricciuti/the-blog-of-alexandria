@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db/index.js';
-import { blog } from '$lib/server/db/schema.js';
+import { blog, type Blog } from '$lib/server/db/schema.js';
 import { openai } from '$lib/server/openai';
 import { fromHighlighter } from '@shikijs/markdown-it';
 import { bundledLanguages, createHighlighter } from 'shiki';
@@ -41,14 +41,14 @@ md.use(
 
 const promises = new Map<string, { content: Promise<string>; title: Promise<string> }>();
 
-export const prerender = 'auto';
+// export const prerender = 'auto';
 
-export async function entries() {
-	const entries = await db.select().from(blog).all();
-	return entries.map((entry) => ({
-		slug: entry.slug
-	}));
-}
+// export async function entries() {
+// 	const entries = await db.select().from(blog).all();
+// 	return entries.map((entry) => ({
+// 		slug: entry.slug
+// 	}));
+// }
 
 export async function load({ params: { slug }, setHeaders }) {
 	if (!building) {
@@ -56,7 +56,15 @@ export async function load({ params: { slug }, setHeaders }) {
 			'Cache-Control': 'no-cache, no-transform'
 		});
 	}
-	const existing = await db.select().from(blog).where(eq(blog.slug, slug)).get();
+	let existing: Blog | undefined;
+	if (building) {
+		// this is extremely cursed but it's the only way to prerender in coolify
+		existing = await fetch(`https://the-blog-of-alexandria.ricciuti.app/api/slugs/${slug}`).then(
+			(res) => res.json()
+		);
+	} else {
+		existing = await db.select().from(blog).where(eq(blog.slug, slug)).get();
+	}
 	if (existing) {
 		return {
 			content: existing.content,

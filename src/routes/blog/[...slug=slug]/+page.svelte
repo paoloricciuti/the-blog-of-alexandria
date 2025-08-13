@@ -30,6 +30,11 @@
 		It's been a while, if we still didn't find your article, try to refresh the page.
 	</p>
 {:then content}
+	<!-- AI Disclaimer - Sidebar with Tailwind -->
+	<div class="fixed right-2 top-1/2 -translate-y-1/2 rotate-90 origin-center text-xs uppercase italic tracking-wider opacity-50 hover:opacity-70 transition-opacity duration-300 text-gray-600 select-none pointer-events-none z-10">
+		Artificial Contemplation
+	</div>
+	
 	<div class="blog-content">
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html content}

@@ -30,6 +30,14 @@
 		It's been a while, if we still didn't find your article, try to refresh the page.
 	</p>
 {:then content}
+	<div class="ai-disclaimer">
+		<div class="disclaimer-divider">
+			<span class="ornament">❦</span>
+		</div>
+		<p class="disclaimer-text">
+			<em>This manuscript emerges from the intersection of human inquiry and artificial contemplation</em>
+		</p>
+	</div>
 	<div class="blog-content">
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html content}
@@ -83,5 +91,34 @@
 		100% {
 			opacity: 0;
 		}
+	}
+
+	.ai-disclaimer {
+		text-align: center;
+		margin-bottom: 2rem;
+		opacity: 0.7;
+		transition: opacity 0.3s ease;
+	}
+
+	.ai-disclaimer:hover {
+		opacity: 1;
+	}
+
+	.disclaimer-divider {
+		margin: 1rem 0;
+		text-align: center;
+	}
+
+	.disclaimer-divider .ornament {
+		color: var(--color-muted);
+		font-size: 1.2rem;
+	}
+
+	.disclaimer-text {
+		color: var(--color-muted);
+		font-size: 0.9rem;
+		font-style: italic;
+		margin: 0;
+		text-wrap: balance;
 	}
 </style>

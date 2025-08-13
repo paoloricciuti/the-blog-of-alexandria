@@ -30,12 +30,13 @@
 		It's been a while, if we still didn't find your article, try to refresh the page.
 	</p>
 {:then content}
-	<!-- AI Disclaimer - Sidebar with Tailwind -->
-	<div class="fixed right-2 top-1/2 -translate-y-1/2 rotate-90 origin-center text-xs uppercase italic tracking-wider opacity-50 hover:opacity-70 transition-opacity duration-300 text-gray-600 select-none pointer-events-none z-10">
-		AI generated
-	</div>
-	
-	<div class="blog-content">
+	<div class="blog-content relative">
+		<!-- AI Disclaimer - Sidebar with Tailwind -->
+		<div
+			class="pointer-events-none absolute -top-7 -right-7 z-10 text-xs text-gray-600 italic opacity-50 select-none"
+		>
+			AI generated
+		</div>
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html content}
 	</div>

@@ -30,7 +30,12 @@
 		It's been a while, if we still didn't find your article, try to refresh the page.
 	</p>
 {:then content}
-	<div class="blog-content">
+	<div class="blog-content relative">
+		<div
+			class="pointer-events-none absolute -top-7 -right-7 z-10 text-xs text-gray-600 italic opacity-50 select-none"
+		>
+			AI generated
+		</div>
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html content}
 	</div>

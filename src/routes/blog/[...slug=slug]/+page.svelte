@@ -30,9 +30,14 @@
 		It's been a while, if we still didn't find your article, try to refresh the page.
 	</p>
 {:then content}
-	<div class="blog-content">
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html content}
+	<div class="blog-container">
+		<div class="ai-disclaimer">
+			Artificial Contemplation
+		</div>
+		<div class="blog-content">
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+			{@html content}
+		</div>
 	</div>
 {:catch error}
 	<p>Error loading blog post: {error.message}</p>
@@ -82,6 +87,37 @@
 		}
 		100% {
 			opacity: 0;
+		}
+	}
+
+	.blog-container {
+		position: relative;
+	}
+
+	.ai-disclaimer {
+		position: fixed;
+		right: 16px;
+		top: 50%;
+		transform: translateY(-50%) rotate(90deg);
+		transform-origin: center;
+		font-size: 11px;
+		color: rgba(107, 114, 126, 0.5);
+		font-style: italic;
+		z-index: 10;
+		pointer-events: none;
+		letter-spacing: 0.5px;
+		text-transform: uppercase;
+		transition: opacity 0.3s ease;
+		user-select: none;
+	}
+
+	.ai-disclaimer:hover {
+		opacity: 0.8;
+	}
+
+	@media (max-width: 768px) {
+		.ai-disclaimer {
+			display: none;
 		}
 	}
 </style>

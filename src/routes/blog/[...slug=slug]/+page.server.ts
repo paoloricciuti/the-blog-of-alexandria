@@ -41,6 +41,15 @@ md.use(
 
 const promises = new Map<string, { content: Promise<string>; title: Promise<string> }>();
 
+export const prerender = 'auto';
+
+export async function entries() {
+	const entries = await db.select().from(blog).all();
+	return entries.map((entry) => ({
+		slug: entry.slug
+	}));
+}
+
 export async function load({ params: { slug }, setHeaders }) {
 	if (!building) {
 		setHeaders({

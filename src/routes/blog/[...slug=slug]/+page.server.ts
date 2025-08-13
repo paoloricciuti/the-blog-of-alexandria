@@ -72,13 +72,13 @@ REQUIREMENTS:
 - Write 800-1200 words of high-quality, informative content
 - Use clear, conversational tone suitable for a general audience
 - Structure with proper headings (##, ###) and logical flow
-- Include practical examples, code snippets, or real-world applications where relevant
+- Include practical examples or real-world applications where relevant
 - Add engaging introduction that hooks the reader
 - Conclude with actionable takeaways or thought-provoking questions
 
 FORMATTING:
 - Use markdown formatting throughout
-- If the article is about coding include code blocks with proper syntax highlighting when applicable
+- ONLY include code blocks if the article topic is specifically about programming, software development, or technical implementation
 - Use bullet points and numbered lists for clarity
 - Bold important concepts and italicize emphasis
 

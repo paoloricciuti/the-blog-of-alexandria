@@ -31,7 +31,6 @@
 	</p>
 {:then content}
 	<div class="blog-content relative">
-		<!-- AI Disclaimer - Sidebar with Tailwind -->
 		<div
 			class="pointer-events-none absolute -top-7 -right-7 z-10 text-xs text-gray-600 italic opacity-50 select-none"
 		>

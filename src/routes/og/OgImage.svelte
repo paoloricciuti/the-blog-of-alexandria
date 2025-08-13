@@ -67,13 +67,6 @@
 		letter-spacing: 0.025em;
 	}
 
-	.ornament {
-		font-family: 'Eb Garamond', serif;
-		font-size: 32px;
-		color: rgba(69, 26, 3, 0.6);
-		margin: 0;
-	}
-
 	.title {
 		font-family: 'Eb Garamond', serif;
 		font-size: 64px;

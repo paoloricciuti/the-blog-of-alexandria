@@ -78,5 +78,6 @@
 		margin-left: auto;
 		margin-right: auto;
 		margin-bottom: auto;
+		text-align: center;
 	}
 </style>

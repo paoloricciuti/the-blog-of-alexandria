@@ -8,6 +8,12 @@
 		<title>The Blog of Alexandria</title>
 	{:then title}
 		<title>The Blog of Alexandria - {title}</title>
+		<meta property="og:title" content="The Blog of Alexandria - {title}" />
+		<meta property="og:description" content="The Blog of Alexandria" />
+		<meta property="og:image" content="/og?title={encodeURIComponent(title ?? '')}" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta name="twitter:card" content="summary_large_image" />
 	{/await}
 </svelte:head>
 

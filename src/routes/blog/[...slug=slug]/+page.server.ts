@@ -1,6 +1,6 @@
 import { db } from '$lib/server/db/index.js';
 import { blog, type Blog } from '$lib/server/db/schema.js';
-import { openai } from '$lib/server/openai';
+import { openai, parse_final_message } from '$lib/server/openai';
 import { fromHighlighter } from '@shikijs/markdown-it';
 import { bundledLanguages, createHighlighter } from 'shiki';
 import { eq } from 'drizzle-orm';
@@ -117,7 +117,7 @@ OUTPUT: Return only the blog post content in markdown format. No meta-commentary
 		})
 		.then((completion) => {
 			if (completion.choices[0].message.content) {
-				const content = completion.choices[0].message.content;
+				const content = parse_final_message(completion.choices[0].message.content);
 
 				const [, title] = content
 					.split('\n')[0]

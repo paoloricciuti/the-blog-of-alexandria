@@ -1,4 +1,4 @@
-import { openai } from '$lib/server/openai';
+import { openai, parse_final_message } from '$lib/server/openai';
 import { redirect } from '@sveltejs/kit';
 import { toJsonSchema } from '@valibot/to-json-schema';
 import { db } from '$lib/server/db/index.js';
@@ -38,7 +38,7 @@ export async function GET() {
 			}
 		});
 
-		url = v.parse(SlugSchemaStrict, JSON.parse(generated.choices[0].message.content ?? '')).slug;
+		url = v.parse(SlugSchemaStrict, JSON.parse(parse_final_message(generated.choices[0].message.content ?? ''))).slug;
 	} catch (e) {
 		console.log(e);
 		// Select a random article from the database

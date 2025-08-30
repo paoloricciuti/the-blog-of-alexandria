@@ -6,7 +6,7 @@ export const openai = new OpenAI({
 	apiKey: OPENROUTER_API_KEY
 });
 
-export function parseFinalMessage(content: string): string {
+export function parse_final_message(content: string): string {
 	const finalMessageMatch = content.match(/<\|channel\|>final<\|message\|>(.+)$/s);
 	return finalMessageMatch ? finalMessageMatch[1].trim() : content;
 }

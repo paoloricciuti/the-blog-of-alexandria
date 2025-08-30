@@ -1,6 +1,18 @@
 <script lang="ts">
-	import facts from './random-facts.json';
+	import facts_data from './random-facts.json';
 	let { data } = $props();
+	
+	// Fisher-Yates shuffle algorithm
+	function shuffle_array<T>(array: T[]): T[] {
+		const shuffled = [...array];
+		for (let i = shuffled.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+		}
+		return shuffled;
+	}
+	
+	const facts = shuffle_array(facts_data);
 </script>
 
 <svelte:head>

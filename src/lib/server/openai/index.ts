@@ -7,6 +7,6 @@ export const openai = new OpenAI({
 });
 
 export function parse_final_message(content: string): string {
-	const final_message_match = content.match(/<\|channel\|>final<\|message\|>(.+)$/s);
+	const final_message_match = content.match(/assistantfinal(.+)$/s);
 	return final_message_match ? final_message_match[1].trim() : content;
 }

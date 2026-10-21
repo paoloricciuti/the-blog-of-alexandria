@@ -1,12 +1,12 @@
-import { db } from '$lib/server/db/index.js';
-import { blog, type Blog } from '$lib/server/db/schema.js';
-import { openai, parse_final_message } from '$lib/server/openai';
+import { db } from '#lib/server/db/index.js';
+import { blog, type Blog } from '#lib/server/db/schema.js';
+import { openai, parse_final_message } from '#lib/server/openai/index.js';
 import { fromHighlighter } from '@shikijs/markdown-it';
 import { bundledLanguages, createHighlighter } from 'shiki';
 import { eq } from 'drizzle-orm';
 import MarkdownIt from 'markdown-it';
 import anchor from 'markdown-it-anchor';
-import { building } from '$app/environment';
+import { building } from '$app/env';
 
 const md = MarkdownIt();
 
@@ -44,9 +44,19 @@ const promises = new Map<string, { content: Promise<string>; title: Promise<stri
 export const prerender = 'auto';
 
 export async function entries() {
-	return await fetch(`https://the-blog-of-alexandria.ricciuti.app/api/slugs`).then((res) =>
-		res.json()
-	);
+	try {
+		const res = await fetch(`https://the-blog-of-alexandria.ricciuti.app/api/slugs`, {
+			redirect: 'manual'
+		});
+		if (!res.ok) {
+			console.warn(`Skipping blog prerendering: /api/slugs responded with ${res.status}`);
+			return [];
+		}
+		return await res.json();
+	} catch (e) {
+		console.warn('Skipping blog prerendering: failed to fetch /api/slugs', e);
+		return [];
+	}
 }
 
 export async function load({ params: { slug }, setHeaders }) {

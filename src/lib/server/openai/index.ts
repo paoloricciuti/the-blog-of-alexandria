@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { OPENROUTER_API_KEY } from '$env/static/private';
+import { OPENROUTER_API_KEY } from '$app/env/private';
 
 export const openai = new OpenAI({
 	baseURL: 'https://openrouter.ai/api/v1',

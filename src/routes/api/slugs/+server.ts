@@ -1,6 +1,5 @@
-import { db } from '$lib/server/db';
-import { blog } from '$lib/server/db/schema';
-import { json } from '@sveltejs/kit';
+import { db } from '#lib/server/db/index.js';
+import { blog } from '#lib/server/db/schema.js';
 
 export async function GET() {
 	const slugs = await db
@@ -9,5 +8,5 @@ export async function GET() {
 		})
 		.from(blog)
 		.all();
-	return json(slugs);
+	return Response.json(slugs);
 }

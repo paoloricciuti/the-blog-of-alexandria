@@ -1,4 +1,4 @@
-import { dev } from '$app/environment';
+import { dev } from '$app/env';
 import { error } from '@sveltejs/kit';
 
 import { image_from_component, type RenderOptions } from 'svelte-component-to-image';

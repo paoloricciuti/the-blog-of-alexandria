@@ -2,7 +2,7 @@
 	import '../app.css';
 	import '@fontsource/crimson-text';
 	import '@fontsource/eb-garamond';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '#lib/assets/favicon.svg';
 
 	let { children } = $props();
 </script>
@@ -69,18 +69,16 @@
 		</div>
 	</main>
 
-	<footer class="paper-texture mx-auto max-w-6xl px-6 py-6 mt-8 shadow-sm">
+	<footer class="paper-texture mx-auto mt-8 max-w-6xl px-6 py-6 shadow-sm">
 		<div class="text-center">
 			<div class="chapter-divider mb-4">
 				<span class="ornament">❦</span>
 			</div>
-			
-			<p class="text-sm text-muted mb-2">
-				An experimental chronicle powered by algorithmic wisdom
-			</p>
-			
-			<a 
-				href="https://github.com/paoloricciuti/the-blog-of-alexandria" 
+
+			<p class="text-muted mb-2 text-sm">An experimental chronicle powered by algorithmic wisdom</p>
+
+			<a
+				href="https://github.com/paoloricciuti/the-blog-of-alexandria"
 				class="elegant-link text-sm font-medium transition-all hover:scale-105"
 				target="_blank"
 				rel="noopener noreferrer"

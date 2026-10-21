@@ -1,8 +1,8 @@
-import { openai, parse_final_message } from '$lib/server/openai';
+import { openai, parse_final_message } from '#lib/server/openai/index.js';
 import { redirect } from '@sveltejs/kit';
 import { toJsonSchema } from '@valibot/to-json-schema';
-import { db } from '$lib/server/db/index.js';
-import { blog } from '$lib/server/db/schema.js';
+import { db } from '#lib/server/db/index.js';
+import { blog } from '#lib/server/db/schema.js';
 import { sql } from 'drizzle-orm';
 
 import * as v from 'valibot';
@@ -38,7 +38,10 @@ export async function GET() {
 			}
 		});
 
-		url = v.parse(SlugSchemaStrict, JSON.parse(parse_final_message(generated.choices[0].message.content ?? ''))).slug;
+		url = v.parse(
+			SlugSchemaStrict,
+			JSON.parse(parse_final_message(generated.choices[0].message.content ?? ''))
+		).slug;
 	} catch (e) {
 		console.log(e);
 		// Select a random article from the database

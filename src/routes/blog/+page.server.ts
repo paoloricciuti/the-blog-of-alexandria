@@ -1,5 +1,5 @@
-import { db } from '$lib/server/db/index.js';
-import { blog } from '$lib/server/db/schema.js';
+import { db } from '#lib/server/db/index.js';
+import { blog } from '#lib/server/db/schema.js';
 import { desc, count } from 'drizzle-orm';
 
 const posts_per_page = 10;
@@ -7,12 +7,12 @@ const posts_per_page = 10;
 export async function load({ url }) {
 	const page_param = url.searchParams.get('page') || '1';
 	const page = parseInt(page_param, 10);
-	
+
 	// Validate page number
 	if (isNaN(page) || page < 1) {
 		throw new Error('Invalid page number');
 	}
-	
+
 	const offset = (page - 1) * posts_per_page;
 
 	// Get total count for pagination
@@ -35,9 +35,12 @@ export async function load({ url }) {
 	// Create excerpts from content (strip HTML and truncate)
 	const posts_with_excerpts = posts.map((post) => {
 		// Strip HTML tags and get first ~200 characters
-		const plain_text = post.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+		const plain_text = post.content
+			.replace(/<[^>]*>/g, ' ')
+			.replace(/\s+/g, ' ')
+			.trim();
 		const excerpt = plain_text.length > 200 ? plain_text.substring(0, 200) + '...' : plain_text;
-		
+
 		return {
 			slug: post.slug,
 			title: post.title,
